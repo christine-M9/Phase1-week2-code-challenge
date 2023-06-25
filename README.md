@@ -45,7 +45,7 @@ Example Response:
      "votes": 0
 
    },
-   3.When viewing an animal’s details, you can to add the number of votes for each animal. This number of votes will be displayed together with the animal’s details.
+   3.When viewing an animal’s details, you can add the number of votes for each animal. This number of votes will be displayed together with the animal’s details.
 
 
   ## Project set-up:

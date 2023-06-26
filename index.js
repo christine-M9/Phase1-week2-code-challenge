@@ -1,40 +1,60 @@
+document.addEventListener("DOMContentLoaded", () => {
+  fetchcharacters();
+});
 
-document.addEventListener('DOMContentLoaded', ()=>{
+const url = "http://localhost:3000/characters";
 
- fetchcharacters()
-})
+function displayCharacters(charact) {
+  const character = document.getElementById("characters");
+  const container = document.createElement("div");
+  container.className = "container";
+  container.innerHTML = `
+      <div class="charact-card">
+      <a class = "name">${charact.name}</a>
+      </div>
+      
+     `;
 
-const url = "http://localhost:3000/characters"
+  const btn = document.querySelector(".btn");
+  btn.style.display = "none";
 
-function displayCharacters(charact){
+  container.querySelector(".name").addEventListener("click", () => {
+    displayCharactersById(charact.id);
+    btn.style.display = "block";
+  });
 
-    const character = document.getElementById('characters')
-   const container = document.createElement("div")
-   container.className = "container"
-   container.innerHTML = `
-   <div>
-   <h2 id = "name">${charact.name}</h2>
-   <img src = ${charact.image}/>
-   <p>${charact.votes}</p>
-   </div>
-   
-  `
-  container.querySelector("#name").addEventListener('click',()=>{
-displayCharactersById(charact.id)
-console.log(charact.id)
-  })
-
-  character.appendChild(container)
+  character.appendChild(container);
 }
-function displayCharactersById(id){
-    fetch(`${url}/${id}`) .then(res => res.json()) 
-    .then(charId =>charId.forEach(id => displayCharacters(id)))
-  
 
+function displayCharactersById(id) {
+  fetch(`${url}/${id}`)
+    .then((res) => res.json())
+    .then((char) => {
+      characterDetail(char);
+    });
 }
-function fetchcharacters(){
 
-    fetch(url) .then(res => res.json()) 
-    .then(charData =>charData.forEach(chard => displayCharacters(chard)))
+function characterDetail(char) {
+  let vote = 0;
 
+  const name = document.querySelector(".name-c");
+  const image = document.querySelector(".img-c");
+  const counter = document.querySelector(".vote");
+  const btn = document.querySelector(".btn");
+
+  name.textContent = char.name;
+  image.setAttribute("src", char.image);
+  counter.textContent = vote;
+
+  btn.addEventListener("click", () => {
+    vote++;
+    counter.textContent = vote;
+  });
 }
+
+function fetchcharacters() {
+  fetch(url)
+    .then((res) => res.json())
+    .then((charData) => charData.forEach((chard) => displayCharacters(chard)));
+}
+

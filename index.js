@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchcharacters();
 });
 
+
 const url = "http://localhost:3000/characters";
+
+
 
 function displayCharacters(charact) {
   const character = document.getElementById("characters");
@@ -16,12 +19,14 @@ function displayCharacters(charact) {
      `;
 
   const btn = document.querySelector(".btn");
+
   btn.style.display = "none";
 
   container.querySelector(".name").addEventListener("click", () => {
     displayCharactersById(charact.id);
     btn.style.display = "block";
   });
+
 
   character.appendChild(container);
 }
@@ -33,6 +38,7 @@ function displayCharactersById(id) {
       characterDetail(char);
     });
 }
+
 
 function characterDetail(char) {
   let vote = 0;
@@ -51,6 +57,8 @@ function characterDetail(char) {
     counter.textContent = vote;
   });
 }
+
+
 
 function fetchcharacters() {
   fetch(url)
